@@ -16,7 +16,7 @@ const App = (props) => {
     <div>
       {props.anecdotes[selected]}
       <p></p>
-      <Button onClick={getAnekdot} text='Seuraava ankdootti' />
+      <Button onClick={getAnekdot} text='Next anekdote' />
     </div>
   )
 }
