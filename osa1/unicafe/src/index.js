@@ -17,7 +17,7 @@ const Statistics = ({good, neutral, bad}) => {
       <StatisticLine text="Huono palaute: " value ={bad} />
       <StatisticLine text="Palaute yhteensä: " value ={total} />
       <StatisticLine text="Palautteen keskiarvo: " value ={average} />
-      <StatisticLine text="Positiivisen palautteen määrä: " value ={positive} />
+      <StatisticLine text="Palautteesta positiivista: " value ={positive} />
     </div>
   )
   }
@@ -27,20 +27,27 @@ const Statistics = ({good, neutral, bad}) => {
     </div>)
 }
 
+const StatisticLine = ({text, value}) => {
+
+  return(
+    <div>
+      <table>
+        <tbody>
+          <tr>
+            <td>{text}</td>
+            <td>{value}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
 const Button = ({ onClick, text }) => (
   <button onClick={onClick}>
     {text}
   </button>
 )
-
-const StatisticLine = ({text, value}) => {
-
-  return(
-    <div>
-      <p>{text} {value}</p>
-    </div>
-  )
-}
 
 
 const App = () => {
