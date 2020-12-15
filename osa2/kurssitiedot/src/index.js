@@ -1,104 +1,58 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Course from './Course';
 
-const Header = (props) => {
-
-  return (
-    <div>
-      <h1>{props.course.name}</h1>
-    </div>
-  )
-}
-
-const Content = (props) => {
-
-  return (
-    <div>
-      <Part1 part1={props.course} />
-      <Part2 part2={props.course} />
-      <Part3 part3={props.course} />
-    </div>
-  )
-}
-
-const Part1 = (props) => {
-
-  return (
-    <div>
-      <p>{props.part1.parts[0].name} {props.part1.parts[0].exercises}</p>
-    </div>
-  )
-}
-
-const Part2 = (props) => {
-
-  return (
-    <div>
-      <p>{props.part2.parts[1].name} {props.part2.parts[1].exercises}</p>
-    </div>
-  )
-}
-
-const Part3 = (props) => {
-
-  return (
-    <div>
-      <p>{props.part3.parts[2].name} {props.part3.parts[2].exercises}</p>
-    </div>
-  )
-}
-
-const Total = (props) => {
-
-  return (
-    <div>
-      <p>Number of exercises: {props.course.parts[0].exercises + props.course.parts[1].exercises + props.course.parts[2].exercises}</p>
-    </div>
-  )
-
-}
-
-const Course = (props) => {
-const course = props.course
-
-return (
-    <div>
-      <Header course={course} />
-      <Content course={course} />
-      <Total course={course} />
-    </div>
-  )
-
-}
-
-const App = () => {
-  const course = {
-    name: 'Half Stack application development',
-    id: 1,
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10,
-        id: 1
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7,
-        id: 2
-      },
-      {
-        name: 'State of a component',
-        exercises: 14,
-        id: 3
-      }
+const App = () => 
+{
+    const courses = [
+    {
+        name: 'Half Stack -sovelluskehitys',
+        id: 1,
+        parts:
+        [
+        {
+            name: 'Reactin perusteet',
+            assignments: 10,
+            id: 1
+        },
+        {
+            name: 'Tiedonvälitys propseilla',
+            assignments: 7,
+            id: 2
+        },
+        {
+            name: 'Komponenttien tila',
+            assignments: 14,
+            id: 3
+        }
+        ]
+    },
+    {
+        name: 'Node.js',
+        id: 2,
+        parts: [
+        {
+            name: 'Routing',
+            assignments: 3,
+            id: 1
+        },
+        {
+            name: 'Middlewaret',
+            assignments: 7,
+            id: 2
+        }
+        ]
+    }
     ]
-  }
 
-  return (
-    <div>
-      <Course course={course} />
-    </div>
-  )
+    return (
+        <div>
+            <h1>Fullstack kokonaisuus</h1>
+            {courses.map(course => 
+                <Course key={course.id} course={course} />
+            )}
+        </div>
+    )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App/>, document.getElementById('root'));
