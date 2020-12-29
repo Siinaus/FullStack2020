@@ -1,16 +1,20 @@
 import React from 'react'
 
-const Number = ({person}) => (
-    <li>{person.name} {person.number}</li>
-  )
+const Persons = ({ persons, removePerson }) => {
 
-const Persons = ({persons}) => {
     return (
-      <ul>
-        {persons.map(person => 
-        <Number key={person.name} person={person}/>)}
-      </ul>
+      <div>
+        <ul>
+          {persons.map(person => 
+            <li key={person.name}>
+              {person.name} 
+              {person.number}
+              <button onClick={() => removePerson(person.name)}>Poista</button>
+            </li>
+          )}
+        </ul>
+      </div>
     )
-  }
+}
 
 export default Persons

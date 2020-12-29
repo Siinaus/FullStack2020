@@ -1,62 +1,84 @@
 import React, { useState, useEffect  } from 'react'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
-import axios from 'axios'
+import personService from './services/persons'
+import Message from "./components/Message";
 
 const App = () => {
 
   const [ persons, setPersons] = useState([])
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
-  
-  const submitName = (event) => {
-    event.preventDefault();
 
-    const personObject = {
-      name: newName,
-      number: newNumber,
-    };
-    setPersons(persons.concat(personObject));
-    setNewName('');
-    setNewNumber('');
-  };
+  const [ message, setMessage ] = useState(null)
 
-  const handleNameChange = (event) => {
-    setNewName(event.target.value);
-  };
-
-  const handleNumberChange = (event) => {
-    setNewNumber(event.target.value);
-  };
-
-  useEffect(() => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
+  // Haetaan kaikki palvelimen yhteystiedot
+   useEffect(() => {
+    personService
+      .getAll()
       .then(response => {
-        console.log('promise fulfilled')
         setPersons(response.data)
       })
   }, [])
-  console.log('render', persons.length, 'persons')
+
+  // Luodaan uusi yhteystieto
+  const addPerson = (event) => {
+    event.preventDefault()
+    const personObj = {
+      name: newName,
+      number: newNumber,
+    }
+    
+    personService
+      .create(personObj)
+      .then(response => {
+        setPersons(persons.concat(response.data))
+        setNewName('')
+        setNewNumber('')
+
+        setMessage(`Lisätty ${response.data.name}`)
+          setTimeout(() => {
+            setMessage(null)
+        }, 3000)
+      })
+  }
+
+  // Poistetaan yhteystieto
+    const removePerson = (id) => {
+    const person = persons.find(person => person.id === id)
+    if (window.confirm(`Poistetaanko ${person.name} ?`)) 
+
+      {personService
+      .remove(id)
+      .then(ignored => {
+        setPersons(persons.filter(person => id !== person.id))
+
+      })
+      }
+    }
+  
+  const handlePersonChange = (event) => {
+    setNewName(event.target.value)
+  }
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
+  }
 
   return (
     <div>
       <h2>Puhelinluettelo</h2>
-
       <h2>Lisää uusi yhteystieto</h2>
+      <Message message={message} />
       <PersonForm
-        submitName={submitName}
-        handleNameChange={handleNameChange}
-        handleNumberChange={handleNumberChange}
-        newName={newName}
-        newNumber={newNumber}
-        persons={persons}
+        name={newName} handlePersonChange= {handlePersonChange} 
+        handleNumberChange={handleNumberChange} 
+        number={newNumber} 
+        addPerson={addPerson}
       />
 
       <h2>Yhteystiedot</h2>
       <Persons 
-      persons={persons}
+      persons={persons} removePerson={removePerson}
       />
 
     </div>

@@ -1,42 +1,16 @@
 import React from 'react'
 
-/*const Alert = (props) => {
-  const name = props.person
-  const newName = props.newName
-
-  if(name === newName) {
-    window.alert(newName + ' on jo yhteystiedoissasi')
-  }
-}*/
-
-/* Tämä oli alunperin PersonFormin return-osiossa
-{persons.map(person => 
-       <Alert key={person.name} person={person.name}/>)}*/
-
-const PersonForm = (props) => {
-
-    const submitName = props.submitName
-    const newName = props.newName
-    const handleNameChange = props.handleNameChange
-    const newNumber = props.newNumber
-    const handleNumberChange = props.handleNumberChange
-    // const persons = props.persons
-
-    return (
+const PersonForm =({addPerson, handlePersonChange, handleNumberChange, name, number}) => {
+  return (
+    <form onSubmit={addPerson}>
+    <div>Nimi: <input type="text" value={name} onChange={handlePersonChange}/></div>
+    <div>Numero: <input type="text" value={number} onChange={handleNumberChange} /></div>
     <div>
-    <form onSubmit={submitName}>
-      <div>
-        nimi: <input value={newName} onChange={handleNameChange} />
-      </div>
-      <div>
-        numero: <input value={newNumber} onChange={handleNumberChange} />
-      </div>
-      <div>
         <button type="submit">Lisää</button>
-      </div>
+    </div>       
     </form>
-    </div>
   )
-    }
+}
+
 
 export default PersonForm
