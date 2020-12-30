@@ -31,7 +31,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/info', (req, res) => {
-  res.send('Puhelinluettelossa on tällä hetkellä', persons.lenght, ' yhteystietoa.')
+
+  res.send(
+    `<span>Yhteystiedoissa on ${persons.length} henkilöä</span><br>
+    <span>${new Date().toString()}</span>`,
+    )
 })
 
 app.get('/api/persons', (req, res) => {
