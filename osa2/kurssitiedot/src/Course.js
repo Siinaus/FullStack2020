@@ -11,17 +11,13 @@ const Header = (props) => {
 
 const Content = (props) => {
 
-/*
 const partsId = props.course.map(id => id.id)
 const partsName = props.course.map(name => name.name)
 const partsAssignment = props.course.map(assignment => assignment.assignments)
-*/
 
   return (
     <div>
-    {props.course.map((i, name, assignment) =>
         <Part key={i} name={name.name} exercises={assignment.assignments} /> 
-    )}
     </div>
   )
 }
